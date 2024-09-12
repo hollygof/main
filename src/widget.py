@@ -4,7 +4,9 @@ def mask_account_card(info):
     parts = info.split()
     card_type = parts[0]
     number = parts[1]
-    # Проверяем тип и применяем соответствующую маскировку
+    mask_card_number = 0
+    mask_account_number = 0
+    # Применяем маскировку
     if card_type in ["Visa", "MasterCard", "Maestro", "AmericanExpress"]:
         return f"{card_type} {mask_card_number(number)}"
     elif card_type == "Счет":
@@ -12,10 +14,11 @@ def mask_account_card(info):
     else:
         raise ValueError("Неизвестный тип карты или счета")
 
-    def get_date(date_str):
-        """Функция форматирования даты"""
-        # Разделяем строку по символу 'T'
-        date_part = date_str.split("T")[0]
-        # Разделяем дату на компоненты (год, месяц, день) и форматируем её
-        year, month, day = date_part.split("-")
-        return f"{day}.{month}.{year}"
+
+def get_date(date_str: str) -> str:
+    """Функция форматирования даты"""
+    # Разделяем строку по символу 'T'
+    date_part = date_str.split("T")[0]
+    # Разделяем дату на компоненты (год, месяц, день) и форматируем её
+    year, month, day = date_part.split("-")
+    return f"{day}.{month}.{year}"
